@@ -17,7 +17,7 @@ ArrayList和LinkedList的大致区别如下:
 >
 >3.对于新增和删除操作add和remove，LinedList比较占优势，因为ArrayList要移动数据。 
 
-显然可以看出ArrayList更适合读取数据，linkedList更多的时候添加或删除数据。
+显然可以看出ArrayList更适合读取数据，linkedList更适合添加或删除数据。
 
 ```java
 LinkedList<String> list = new LinkedList<String>();
