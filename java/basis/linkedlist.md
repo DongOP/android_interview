@@ -11,9 +11,9 @@ LinkedList是一个简单的数据结构，与ArrayList不同的是，他是基�
 > Doubly-linked list implementation of the List and Deque interfaces. Implements all optional list operations, and permits all elements \(including null\).
 
 ArrayList和LinkedList的大致区别如下:
-1.ArrayList是实现了基于动态数组的数据结构，LinkedList基于链表的数据结构。 
-2.对于随机访问get和set，ArrayList优于LinkedList，因为LinkedList要移动指针。 
-3.对于新增和删除操作add和remove，LinedList比较占优势，因为ArrayList要移动数据。 
+>1.ArrayList是实现了基于动态数组的数据结构，LinkedList基于链表的数据结构。 
+>2.对于随机访问get和set，ArrayList优于LinkedList，因为LinkedList要移动指针。 
+>3.对于新增和删除操作add和remove，LinedList比较占优势，因为ArrayList要移动数据。 
 
 ```java
 LinkedList<String> list = new LinkedList<String>();
