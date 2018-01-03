@@ -84,7 +84,7 @@ device
 
     adb pull sdcard/pull.txt d:\rename.txt
 
->注意权限，复制系统权限的目录下的文件，需要 root ，并且一般的 Android 机 root 之后并不能使用命令去复制，而需要在手机上使用类似于 RE 的文件浏览器，先对系统的文件系统进行挂载为可读写后，才能在手机上复制移动系统文件，这里推荐使用小米手机的开发版本，IUNI 也是不错滴~~
+    >注意权限，复制系统权限的目录下的文件，需要 root ，并且一般的 Android 机 root 之后并不能使用命令去复制，而需要在手机上使用类似于 RE 的文件浏览器，先对系统的文件系统进行挂载为可读写后，才能在手机上复制移动系统文件，这里推荐使用小米手机的开发版本，IUNI 也是不错滴~~
 
 * adb push , 推送本地文件至 Android 设备
 
@@ -92,7 +92,7 @@ device
 
     adb push d:\push.txt sdcard/
 
->sdcard 后面的斜杠不能少，否则会出现下面的错误：
+    >sdcard 后面的斜杠不能少，否则会出现下面的错误：
 
 [xuxu:~]$ adb push push.txt sdcard
 failed to copy 'push.txt' to 'sdcard': Is a directory
@@ -126,20 +126,20 @@ adb shell 命令
 
 打开这些文件就可以发现，里面有些命令其实是一个 shell 脚本，例如打开 monkey 文件：
 
-# Script to start "monkey" on the device, which has a very rudimentary
-# shell.
-#
+    # Script to start "monkey" on the device, which has a very rudimentary
+    # shell.
+    #
 base=/system
 export CLASSPATH=$base/framework/monkey.jar
 trap "" HUP
 exec app_process $base/bin com.android.commands.monkey.Monkey $*
 再比如打开 am：
 
-#!/system/bin/sh
-#
-# Script to start "am" on the device, which has a very rudimentary
-# shell.
-#
+    #!/system/bin/sh
+    #
+    # Script to start "am" on the device, which has a very rudimentary
+    # shell.
+    #
 base=/system
 export CLASSPATH=$base/framework/am.jar
 exec app_process $base/bin com.android.commands.am.Am "$@"
