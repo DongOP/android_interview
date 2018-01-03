@@ -1,31 +1,28 @@
-# Android 常用 adb 命令总结
+﻿Android 常用 adb 命令总结
 
 针对移动端 Android 的测试， adb 命令是很重要的一个点，必须将常用的 adb 命令熟记于心， 将会为 Android 测试带来很大的方便，其中很多命令将会用于自动化测试的脚本当中。
 
-## Android Debug Bridge
+Android Debug Bridge
 
-**adb** 其实就是 Android Debug Bridge, Android 调试桥的缩写，adb 是一个 C/S 架构的命令行工具，主要由 3 部分组成：
+adb 其实就是 Android Debug Bridge, Android 调试桥的缩写，adb 是一个 C/S 架构的命令行工具，主要由 3 部分组成：
 
-* 运行在 PC 端的 Client : 可以通过它对 Android 应用进行安装、卸载及调试
+运行在 PC 端的 Client : 可以通过它对 Android 应用进行安装、卸载及调试
 
-    >Eclipse 中的 ADT、SDK Tools 目录下的 DDMS、Monitor 等工具，都是同样地用到了 adb 的功能来与 Android 设备进行交互。
-    >
-    >PC 端的手机助手，诸如 360 手机助手、豌豆荚、应用宝等，其除了安装第三方应用方便，其他的功能，基本上都可以通过 adb 命令去完成，这里建议测试人员尽量不要在电脑上安装这类手机助手，因为其自带的 adb 程序可能会与 Android SDK 下的 adb 程序产生冲突，5037 端口被占用，导致使用 adb 命令时无法连接到设备
+Eclipse 中的 ADT、SDK Tools 目录下的 DDMS、Monitor 等工具，都是同样地用到了 adb 的功能来与 Android 设备进行交互。
 
-* 运行在 PC 端的 Service : 其管理客户端到 Android 设备上 adb 后台进程的连接
+PC 端的手机助手，诸如 360 手机助手、豌豆荚、应用宝等，其除了安装第三方应用方便，其他的功能，基本上都可以通过 adb 命令去完成，这里建议测试人员尽量不要在电脑上安装这类手机助手，因为其自带的 adb 程序可能会与 Android SDK 下的 adb 程序产生冲突，5037 端口被占用，导致使用 adb 命令时无法连接到设备
+运行在 PC 端的 Service : 其管理客户端到 Android 设备上 adb 后台进程的连接
 
-    >adb 服务启动后，Windows 可以在任务管理器中找到 adb.exe 这个进程
+adb 服务启动后，Windows 可以在任务管理器中找到 adb.exe 这个进程
+运行在 Android 设备上的 adb 后台进程
 
-* 运行在 Android 设备上的 adb 后台进程
-
-    >执行 adb shell ps | grep adbd ，可以找到该后台进程，windows 请使用 findstr 替代 grep
-    >[xd:~]$ adb shell ps | grep adbd
-    >root      23227 1     6672   832   ffffffff 00019bb4 S /sbin/adbd
+执行 adb shell ps | grep adbd ，可以找到该后台进程，windows 请使用 findstr 替代 grep
+[xuxu:~]$ adb shell ps | grep adbd
+root      23227 1     6672   832   ffffffff 00019bb4 S /sbin/adbd
 这里注意一个地方，就是 adb 使用的端口号，5037，有必要记一下
 
 接下来我将 adb 命令分为三部分进行介绍，adb 命令、adb shell 命令、linux 命令
-
-# adb 命令
+adb 命令
 
 在开发或者测试的过程中，我们可以通过 adb 来管理多台设备，其一般的格式为：
 
@@ -35,65 +32,50 @@ adb [-e | -d | -s <设备序列号>] <子命令>
 
 这里介绍一些里面常用的命令：
 
-* adb devices , 获取设备列表及设备状态
+adb devices , 获取设备列表及设备状态
 
 [xuxu:~]$ adb devices
 List of devices attached 
 44c826a0    device  
-
-* adb get-state , 获取设备的状态
+adb get-state , 获取设备的状态
 
 [xuxu:~]$ adb get-state  
 device
+设备的状态有 3 钟，device , offline , unknown
 
-    >设备的状态有 3 钟，device , offline , unknown
+device：设备正常连接
 
-    >device：设备正常连接
-    
-    >offline：连接出现异常，设备无响应
-    
-    >unknown：没有连接设备
+offline：连接出现异常，设备无响应
 
-* adb kill-server , adb start-server , 结束 adb 服务， 启动 adb 服务，通常两个命令一起用
+unknown：没有连接设备
+adb kill-server , adb start-server , 结束 adb 服务， 启动 adb 服务，通常两个命令一起用
 
-    >一般在连接出现异常，使用 adb devices 未正常列出设备， 设备状态异常时使用 kill-server，然后运行 start-server 进行重启服务
+一般在连接出现异常，使用 adb devices 未正常列出设备， 设备状态异常时使用 kill-server，然后运行 start-server 进行重启服务
+adb logcat , 打印 Android 的系统日志，这个可以单独拿出来讲
+adb bugreport , 打印dumpsys、dumpstate、logcat的输出，也是用于分析错误
 
-* adb logcat , 打印 Android 的系统日志，这个可以单独拿出来讲
+输出比较多，建议重定向到一个文件中
+adb bugreport > d:\bugreport.log
+adb install , 安装应用，覆盖安装是使用 -r 选项
 
-* adb bugreport , 打印dumpsys、dumpstate、logcat的输出，也是用于分析错误
+windows 下如果需要安装含有中文名的 apk ，需要对 adb 进行修改，百度可以找到做出修改的adb , 支持中文命令的 apk，请自行搜索
+adb uninstall , 卸载应用，后面跟的参数是应用的包名，请区别于 apk 文件名
 
-    >输出比较多，建议重定向到一个文件中
+'-k' means keep the data and cache directories , -k 选项，卸载时保存数据和缓存目录
+adb pull , 将 Android 设备上的文件或者文件夹复制到本地
 
-    adb bugreport > d:\bugreport.log
+例如复制 Sdcard 下的 pull.txt 文件到 D 盘：
 
-* adb install , 安装应用，覆盖安装是使用 -r 选项
+adb pull sdcard/pull.txt d:\
+如果需要重命名为 rename.txt：
+adb pull sdcard/pull.txt d:\rename.txt
+注意权限，复制系统权限的目录下的文件，需要 root ，并且一般的 Android 机 root 之后并不能使用命令去复制，而需要在手机上使用类似于 RE 的文件浏览器，先对系统的文件系统进行挂载为可读写后，才能在手机上复制移动系统文件，这里推荐使用小米手机的开发版本，IUNI 也是不错滴~~
+adb push , 推送本地文件至 Android 设备
 
-    >windows 下如果需要安装含有中文名的 apk ，需要对 adb 进行修改，百度可以找到做出修改的adb , 支持中文命令的 apk，请自行搜索
+例如推送 D 盘下的 push.txt 至 Sdcard：
 
-* adb uninstall , 卸载应用，后面跟的参数是应用的包名，请区别于 apk 文件名
-
-    >'-k' means keep the data and cache directories , -k 选项，卸载时保存数据和缓存目录
-
-* adb pull , 将 Android 设备上的文件或者文件夹复制到本地
-
-    例如复制 Sdcard 下的 pull.txt 文件到 D 盘：
-
-    adb pull sdcard/pull.txt d:\
-
-    >如果需要重命名为 rename.txt：
-
-    adb pull sdcard/pull.txt d:\rename.txt
-
-    >注意权限，复制系统权限的目录下的文件，需要 root ，并且一般的 Android 机 root 之后并不能使用命令去复制，而需要在手机上使用类似于 RE 的文件浏览器，先对系统的文件系统进行挂载为可读写后，才能在手机上复制移动系统文件，这里推荐使用小米手机的开发版本，IUNI 也是不错滴~~
-
-* adb push , 推送本地文件至 Android 设备
-
-    例如推送 D 盘下的 push.txt 至 Sdcard：
-
-    adb push d:\push.txt sdcard/
-
-    >sdcard 后面的斜杠不能少，否则会出现下面的错误：
-
+adb push d:\push.txt sdcard/
+sdcard 后面的斜杠不能少，否则会出现下面的错误：
 [xuxu:~]$ adb push push.txt sdcard
 failed to copy 'push.txt' to 'sdcard': Is a directory
 权限问题同 pull 命令
@@ -126,20 +108,20 @@ adb shell 命令
 
 打开这些文件就可以发现，里面有些命令其实是一个 shell 脚本，例如打开 monkey 文件：
 
-    # Script to start "monkey" on the device, which has a very rudimentary
-    # shell.
-    #
+# Script to start "monkey" on the device, which has a very rudimentary
+# shell.
+#
 base=/system
 export CLASSPATH=$base/framework/monkey.jar
 trap "" HUP
 exec app_process $base/bin com.android.commands.monkey.Monkey $*
 再比如打开 am：
 
-    #!/system/bin/sh
-    #
-    # Script to start "am" on the device, which has a very rudimentary
-    # shell.
-    #
+#!/system/bin/sh
+#
+# Script to start "am" on the device, which has a very rudimentary
+# shell.
+#
 base=/system
 export CLASSPATH=$base/framework/am.jar
 exec app_process $base/bin com.android.commands.am.Am "$@"
