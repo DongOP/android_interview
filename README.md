@@ -54,6 +54,7 @@
 ## ADB(Android Debug Bridge)
 
 - [ADB语句](/adb/ADB.txt)
+[This link](https://testerhome.com/topics/2565)
 
 ## 致谢
 
