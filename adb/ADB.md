@@ -1,8 +1,8 @@
-#Android 常用 adb 命令总结
+# Android 常用 adb 命令总结
 
 针对移动端 Android 的测试， adb 命令是很重要的一个点，必须将常用的 adb 命令熟记于心， 将会为 Android 测试带来很大的方便，其中很多命令将会用于自动化测试的脚本当中。
 
-##Android Debug Bridge
+## Android Debug Bridge
 
 **adb** 其实就是 Android Debug Bridge, Android 调试桥的缩写，adb 是一个 C/S 架构的命令行工具，主要由 3 部分组成：
 
