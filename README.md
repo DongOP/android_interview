@@ -53,7 +53,7 @@
 
 ## ADB(Android Debug Bridge)
 
-- [ADB语句](/adb/ADB.md)
+- [ADB语句](/adb/ADB.txt)
 
 ## 致谢
 
