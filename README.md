@@ -51,6 +51,10 @@
 
 - [SQL语句](/sql/SQL.md)
 
+## ADB(Android Debug Bridge)
+
+- [ADB语句](/adb/ADB.md)
+
 ## 致谢
 
 | 贡献者          | 贡献内容        | 贡献者    | 贡献内容                       |
