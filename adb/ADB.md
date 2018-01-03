@@ -14,13 +14,13 @@
 
 * 运行在 PC 端的 Service : 其管理客户端到 Android 设备上 adb 后台进程的连接
 
->adb 服务启动后，Windows 可以在任务管理器中找到 adb.exe 这个进程
+    >adb 服务启动后，Windows 可以在任务管理器中找到 adb.exe 这个进程
 
 * 运行在 Android 设备上的 adb 后台进程
 
->执行 adb shell ps | grep adbd ，可以找到该后台进程，windows 请使用 findstr 替代 grep
->[xd:~]$ adb shell ps | grep adbd
->root      23227 1     6672   832   ffffffff 00019bb4 S /sbin/adbd
+    >执行 adb shell ps | grep adbd ，可以找到该后台进程，windows 请使用 findstr 替代 grep
+    >[xd:~]$ adb shell ps | grep adbd
+    >root      23227 1     6672   832   ffffffff 00019bb4 S /sbin/adbd
 这里注意一个地方，就是 adb 使用的端口号，5037，有必要记一下
 
 接下来我将 adb 命令分为三部分进行介绍，adb 命令、adb shell 命令、linux 命令
@@ -46,13 +46,13 @@ List of devices attached
 [xuxu:~]$ adb get-state  
 device
 
->设备的状态有 3 钟，device , offline , unknown
->
->device：设备正常连接
->
->offline：连接出现异常，设备无响应
->
->unknown：没有连接设备
+    >设备的状态有 3 钟，device , offline , unknown
+    >
+    >device：设备正常连接
+    >
+    >offline：连接出现异常，设备无响应
+    >
+    >unknown：没有连接设备
 
 * adb kill-server , adb start-server , 结束 adb 服务， 启动 adb 服务，通常两个命令一起用
 
@@ -80,7 +80,7 @@ device
 
     adb pull sdcard/pull.txt d:\
 
->如果需要重命名为 rename.txt：
+    >如果需要重命名为 rename.txt：
 
     adb pull sdcard/pull.txt d:\rename.txt
 
