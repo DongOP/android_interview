@@ -12,7 +12,7 @@
 
 ④更强大的功能，线程池提供了定时、定期以及可控线程数等功能的线程池，使用方便简单。
 
-### 二、ThreadPoolExecutor
+## 二、ThreadPoolExecutor
 
 我们可以通过ThreadPoolExecutor来创建一个线程池。
 ```
@@ -120,7 +120,9 @@ shutdown原理：将线程池状态设置成SHUTDOWN状态，然后中断所有�
 shutdownNow原理：将线程池的状态设置成STOP状态，然后中断所有任务(包括正在执行的)的线程，并返回等待执行任务的列表。
 
 **中断采用interrupt方法，所以无法响应中断的任务可能永远无法终止。**但调用上述的两个关闭之一，isShutdown()方法返回值为true，当所有任务都已关闭，表示线程池关闭完成，则isTerminated()方法返回值为true。当需要立刻中断所有的线程，不一定需要执行完任务，可直接调用shutdownNow()方法。
-###三、线程池执行流程
+
+## 三、线程池执行流程
+
 ![](http://upload-images.jianshu.io/upload_images/3985563-c05771982ad27f86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ①如果在线程池中的线程数量没有达到核心的线程数量，这时候就回启动一个核心线程来执行任务。
 
@@ -130,7 +132,7 @@ shutdownNow原理：将线程池的状态设置成STOP状态，然后中断所�
 
 ④如果线程池中的数量达到了所规定的最大值，那么就会拒绝执行此任务，这时候就会调用RejectedExecutionHandler中的rejectedExecution方法来通知调用者。
 
-### 四、四种线程池类
+## 四、四种线程池类
 
 Java中四种具有不同功能常见的线程池。他们都是直接或者间接配置ThreadPoolExecutor来实现他们各自的功能。这四种线程池分别是newFixedThreadPool,newCachedThreadPool,newScheduledThreadPool和newSingleThreadExecutor。这四个线程池可以通过Executors类获取。
 ##### 1. newFixedThreadPool 
@@ -219,7 +221,7 @@ public static ExecutorService newSingleThreadExecutor() {
 }
 ```
 
-### 五、线程池的使用技巧
+## 五、线程池的使用技巧
 
 需要针对具体情况而具体处理，不同的任务类别应采用不同规模的线程池，任务类别可划分为CPU密集型任务、IO密集型任务和混合型任务。(N代表CPU个数)
 
