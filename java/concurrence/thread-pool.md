@@ -129,7 +129,9 @@ shutdownNow原理：将线程池的状态设置成STOP状态，然后中断所�
 ③由于任务队列已满，无法将任务插入到任务队列中。这个时候如果线程池中的线程数量没有达到线程池所设定的最大值，那么这时候就会立即启动一个非核心线程来执行任务。
 
 ④如果线程池中的数量达到了所规定的最大值，那么就会拒绝执行此任务，这时候就会调用RejectedExecutionHandler中的rejectedExecution方法来通知调用者。
-###四、四种线程池类
+
+### 四、四种线程池类
+
 Java中四种具有不同功能常见的线程池。他们都是直接或者间接配置ThreadPoolExecutor来实现他们各自的功能。这四种线程池分别是newFixedThreadPool,newCachedThreadPool,newScheduledThreadPool和newSingleThreadExecutor。这四个线程池可以通过Executors类获取。
 ##### 1. newFixedThreadPool 
 通过Executors中的newFixedThreadPool方法来创建，该线程池是一种线程数量固定的线程池。
@@ -216,8 +218,9 @@ public static ExecutorService newSingleThreadExecutor() {
                                 new LinkedBlockingQueue<Runnable>()));
 }
 ```
-```
-###五、线程池的使用技巧
+
+### 五、线程池的使用技巧
+
 需要针对具体情况而具体处理，不同的任务类别应采用不同规模的线程池，任务类别可划分为CPU密集型任务、IO密集型任务和混合型任务。(N代表CPU个数)
 
 对于CPU密集型任务：线程池中线程个数应尽量少，如配置N+1个线程的线程池；
