@@ -1,8 +1,8 @@
-###一、概述
+## 一、概述
 
 在我们的开发中经常会使用到多线程。例如在Android中，由于主线程的诸多限制，像网络请求等一些耗时的操作我们必须在子线程中运行。我们往往会通过new Thread来开启一个子线程，待子线程操作完成以后通过Handler切换到主线程中运行。这么以来我们无法管理我们所创建的子线程，并且无限制的创建子线程，它们相互之间竞争，很有可能由于占用过多资源而导致死机或者OOM。所以在Java中为我们提供了线程池来管理我们所创建的线程。
 
-#####线程池的优势
+#### 线程池的优势
 
 ①降低系统资源消耗，通过重用已存在的线程，降低线程创建和销毁造成的消耗；
 
@@ -12,7 +12,7 @@
 
 ④更强大的功能，线程池提供了定时、定期以及可控线程数等功能的线程池，使用方便简单。
 
-###二、ThreadPoolExecutor
+### 二、ThreadPoolExecutor
 
 我们可以通过ThreadPoolExecutor来创建一个线程池。
 ```
@@ -29,9 +29,9 @@ ExecutorService service = new ThreadPoolExecutor(....);
                               RejectedExecutionHandler handler) 
 ```
 
-#####ThreadPoolExecutor参数含义
+#### ThreadPoolExecutor参数含义
 
-**1. corePoolSize **
+**1. corePoolSize**
 
 线程池中的核心线程数，默认情况下，核心线程一直存活在线程池中，即便他们在线程池中处于闲置状态。除非我们将ThreadPoolExecutor的allowCoreThreadTimeOut属性设为true的时候，这时候处于闲置的核心线程在等待新任务到来时会有超时策略，这个超时时间由keepAliveTime来指定。一旦超过所设置的超时时间，闲置的核心线程就会被终止。 
 
@@ -39,15 +39,15 @@ ExecutorService service = new ThreadPoolExecutor(....);
 
 线程池中所容纳的最大线程数，如果活动的线程达到这个数值以后，后续的新任务将会被阻塞。包含核心线程数+非核心线程数。
  
-**3. keepAliveTime **
+**3. keepAliveTime**
 
 非核心线程闲置时的超时时长，对于非核心线程，闲置时间超过这个时间，非核心线程就会被回收。只有对ThreadPoolExecutor的allowCoreThreadTimeOut属性设为true的时候，这个超时时间才会对核心线程产生效果。 
 
-**4. unit **
+**4. unit**
 
 用于指定keepAliveTime参数的时间单位。他是一个枚举，可以使用的单位有天（TimeUnit.DAYS），小时（TimeUnit.HOURS），分钟（TimeUnit.MINUTES），毫秒(TimeUnit.MILLISECONDS)，微秒(TimeUnit.MICROSECONDS, 千分之一毫秒)和毫微秒(TimeUnit.NANOSECONDS, 千分之一微秒); 
 
-**5. workQueue **
+**5. workQueue**
 
 线程池中保存等待执行的任务的阻塞队列。通过线程池中的execute方法提交的Runable对象都会存储在该队列中。我们可以选择下面几个阻塞队列。
 
@@ -61,11 +61,11 @@ PriorityBlockingQueue:具有优先级的无限阻塞队列。
 
 我们还能够通过实现BlockingQueue接口来自定义我们所需要的阻塞队列。
 
-**6. threadFactory **
+**6. threadFactory**
 
 线程工厂，为线程池提供新线程的创建。ThreadFactory是一个接口，里面只有一个newThread方法。 默认为DefaultThreadFactory类。
 
-**7. handler **
+**7. handler**
 
 是RejectedExecutionHandler对象，而RejectedExecutionHandler是一个接口，里面只有一个rejectedExecution方法。**当任务队列已满并且线程池中的活动线程已经达到所限定的最大值或者是无法成功执行任务，这时候ThreadPoolExecutor会调用RejectedExecutionHandler中的rejectedExecution方法。**在ThreadPoolExecutor中有四个内部类实现了RejectedExecutionHandler接口。在线程池中**它默认是AbortPolicy，在无法处理新任务时抛出RejectedExecutionException异常**。
 
