@@ -80,7 +80,7 @@ DiscardPolicy:丢弃掉该任务，不进行处理
 DiscardOldestPolicy:丢弃队列里最近的一个任务，并执行当前任务。
 
 我们也可以通过实现RejectedExecutionHandler接口来自定义我们自己的handler。如记录日志或持久化不能处理的任务。
-#####ThreadPoolExecutor的使用
+#### ThreadPoolExecutor的使用
 ```
 ExecutorService service = new ThreadPoolExecutor(5, 10, 10, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
 ```
@@ -112,7 +112,7 @@ Future<Integer> future = service.submit(new Callable<Integer>() {
 				e.printStackTrace();
 			}
 ```
-#####线程池关闭
+#### 线程池关闭
 调用线程池的shutdown()或shutdownNow()方法来关闭线程池
 
 shutdown原理：将线程池状态设置成SHUTDOWN状态，然后中断所有没有正在执行任务的线程。
@@ -131,7 +131,7 @@ shutdownNow原理：将线程池的状态设置成STOP状态，然后中断所�
 ④如果线程池中的数量达到了所规定的最大值，那么就会拒绝执行此任务，这时候就会调用RejectedExecutionHandler中的rejectedExecution方法来通知调用者。
 ###四、四种线程池类
 Java中四种具有不同功能常见的线程池。他们都是直接或者间接配置ThreadPoolExecutor来实现他们各自的功能。这四种线程池分别是newFixedThreadPool,newCachedThreadPool,newScheduledThreadPool和newSingleThreadExecutor。这四个线程池可以通过Executors类获取。
-#####1. newFixedThreadPool 
+##### 1. newFixedThreadPool 
 通过Executors中的newFixedThreadPool方法来创建，该线程池是一种线程数量固定的线程池。
 ```
 ExecutorService service = Executors.newFixedThreadPool(4);
