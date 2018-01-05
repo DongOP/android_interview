@@ -1,6 +1,9 @@
 ###一、概述
+
 在我们的开发中经常会使用到多线程。例如在Android中，由于主线程的诸多限制，像网络请求等一些耗时的操作我们必须在子线程中运行。我们往往会通过new Thread来开启一个子线程，待子线程操作完成以后通过Handler切换到主线程中运行。这么以来我们无法管理我们所创建的子线程，并且无限制的创建子线程，它们相互之间竞争，很有可能由于占用过多资源而导致死机或者OOM。所以在Java中为我们提供了线程池来管理我们所创建的线程。
+
 #####线程池的优势
+
 ①降低系统资源消耗，通过重用已存在的线程，降低线程创建和销毁造成的消耗；
 
 ②提高系统响应速度，当有任务到达时，无需等待新线程的创建便能立即执行；
@@ -10,6 +13,7 @@
 ④更强大的功能，线程池提供了定时、定期以及可控线程数等功能的线程池，使用方便简单。
 
 ###二、ThreadPoolExecutor
+
 我们可以通过ThreadPoolExecutor来创建一个线程池。
 ```
 ExecutorService service = new ThreadPoolExecutor(....);
@@ -24,6 +28,7 @@ ExecutorService service = new ThreadPoolExecutor(....);
                               ThreadFactory threadFactory,
                               RejectedExecutionHandler handler) 
 ```
+
 #####ThreadPoolExecutor参数含义
 
 **1. corePoolSize **
