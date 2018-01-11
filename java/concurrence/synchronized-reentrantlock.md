@@ -96,7 +96,7 @@ synchronized(Test.class){ //TODO}
 synchronized(o) {}
 ```
 这里面的o可以是一个任何Object对象或数组，并不一定是它本身对象或者类，谁拥有o这个锁，谁就能够操作该块程序代码。
-#####4.解决线程同步的实例
+##### 4.解决线程同步的实例
 针对上述方法，具体的解决方式如下：
 ```
 public class Ticket implements Runnable {
@@ -133,8 +133,8 @@ Thread-3.....sale....2
 Thread-0.....sale....1
 
 可以看出实现了线程同步。同时改了一下逻辑，在进入到同步代码块时，先判断现在是否有没有票，然后再买票，防止出现没票还要售出的情况。通过同步代码块实现了线程同步，其他方法也一样可以实现该效果。
-###三、ReentrantLock锁
-#####1.Lock接口
+### 三、ReentrantLock锁
+##### 1.Lock接口
 Lock，锁对象。在Java中锁是用来控制多个线程访问共享资源的方式，一般来说，一个锁能够防止多个线程同时访问共享资源（但有的锁可以允许多个线程并发访问共享资源，比如读写锁，后面我们会分析）。在Lock接口出现之前，Java程序是靠synchronized关键字（后面分析）实现锁功能的，而JAVA SE5.0之后并发包中新增了Lock接口用来实现锁的功能，它提供了与synchronized关键字类似的同步功能，只是在使用时需要显式地获取和释放锁，缺点就是缺少像synchronized那样隐式获取释放锁的便捷性，但是却拥有了锁获取与释放的可操作性，可中断的获取锁以及超时获取锁等多种synchronized关键字所不具备的同步特性。
 
 Lock接口的主要方法（还有两个方法比较复杂，暂不介绍）：
@@ -145,7 +145,7 @@ Lock接口的主要方法（还有两个方法比较复杂，暂不介绍）：
 
 
 ReentrantLock，一个可重入的互斥锁，它具有与使用synchronized方法和语句所访问的隐式监视器锁相同的一些基本行为和语义，但功能更强大。（重入锁后面介绍）
-#####2.ReentrantLock的使用
+##### 2.ReentrantLock的使用
 关于ReentrantLock的使用很简单，只需要显示调用，获得同步锁，释放同步锁即可。
 ```
 ReentrantLock lock = new ReentrantLock(); //参数默认false，不公平锁    
@@ -157,7 +157,7 @@ try {
     lock.unlock();  //释放锁  
 }  
 ```
-#####3.解决线程同步的实例
+##### 3.解决线程同步的实例
 针对上述方法，具体的解决方式如下：
 ```
 public class Ticket implements Runnable {
@@ -183,7 +183,7 @@ public class Ticket implements Runnable {
 	}
 }
 ```
-###四、重入锁
+### 四、重入锁
 当一个线程得到一个对象后，再次请求该对象锁时是可以再次得到该对象的锁的。
 具体概念就是：自己可以再次获取自己的内部锁。
 Java里面内置锁(synchronized)和Lock(ReentrantLock)都是可重入的。
@@ -284,8 +284,8 @@ Thread-1获得锁
 Thread-0获得锁
 
 这是截取的部分执行结果，分析结果可看出两个线程是交替执行的，几乎不会出现同一个线程连续执行多次。
-###六、synchronized和ReentrantLock的比较
-#####1.区别：
+### 六、synchronized和ReentrantLock的比较
+##### 1.区别：
 
 1）Lock是一个接口，而synchronized是Java中的关键字，synchronized是内置的语言实现；
 
@@ -308,7 +308,7 @@ isHeldByCurrentThread()   //判断锁是否被当前线程获取了
 
 hasQueuedThreads()   //判断是否有线程在等待该锁
 ```
-#####2.两者在锁的相关概念上区别：
+##### 2.两者在锁的相关概念上区别：
 **1)可中断锁**
 顾名思义，就是可以相应中断的锁。
 
@@ -338,7 +338,7 @@ ReadWriteLock就是读写锁，它是一个接口，ReentrantReadWriteLock实现
 
 一个ReentrantLock对象可以同时绑定多个Condition对象，而在synchronized中，锁对象的wait()和notify()或notifyAll()方法可以实现一个隐含的条件，如果要和多余一个条件关联的时候，就不得不额外地添加一个锁，而ReentrantLock则无须这么做，只需要多次调用new Condition()方法即可。
 
-#####3.性能比较
+##### 3.性能比较
 在性能上来说，如果竞争资源不激烈，两者的性能是差不多的，而当竞争资源非常激烈时（即有大量线程同时竞争），此时ReentrantLock的性能要远远优于synchronized。所以说，在具体使用时要根据适当情况选择。
 
 在JDK1.5中，synchronized是性能低效的。因为这是一个重量级操作，它对性能最大的影响是阻塞的是实现，挂起线程和恢复线程的操作都需要转入内核态中完成，这些操作给系统的并发性带来了很大的压力。相比之下使用Java提供的ReentrankLock对象，性能更高一些。到了JDK1.6，发生了变化，对synchronize加入了很多优化措施，有自适应自旋，锁消除，锁粗化，轻量级锁，偏向锁等等。导致在JDK1.6上synchronize的性能并不比Lock差。官方也表示，他们也更支持synchronize，在未来的版本中还有优化余地，所以还是提倡在synchronized能实现需求的情况下，优先考虑使用synchronized来进行同步。
