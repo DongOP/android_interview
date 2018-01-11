@@ -208,7 +208,7 @@ public static void main(String[] args) throws InterruptedException {
 
 **原因分析：一开始两个ThreadSubtract线程等待状态，当ThreadAdd线程添加一个元素并唤醒所有线程后，第一个ThreadSubtract线程接着原来的执行到的地点开始继续执行，删除一个元素并输出集合大小。同样，第二个ThreadSubtract线程也如此，可是此时集合中已经没有元素了，所以抛出异常。**
 
-**解决办法：从等待状态被唤醒后，重新判断条件，看看是否扔需要进入等待状态，不需要进入再进行下一步操作。即把if\(\)判断，改成while\(\)。**
+**解决办法：从等待状态被唤醒后，重新判断条件，看看是否仍需要进入等待状态，不需要进入再进行下一步操作。即把if\(\)判断，改成while\(\)。**
 
 ```java
 public void subtract(){
