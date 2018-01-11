@@ -52,10 +52,10 @@ Thread-3.....sale....1
 因此加入同步锁以避免在该线程没有完成操作之前，被其他线程的调用，从而保证了该变量的唯一性和准确性。
 
 一共有两种锁，来实现线程同步问题，分别是：synchronized和ReentrantLock。下面我们就带着上述问题，看看这两种锁是如何解决的。
-####二、synchronized关键字
-#####1.synchronized简介
+#### 二、synchronized关键字
+##### 1.synchronized简介
 synchronized实现同步的基础：Java中每个对象都可以作为锁。当线程试图访问同步代码时，必须先获得对象锁，退出或抛出异常时必须释放锁。Synchronzied实现同步的表现形式分为：代码块同步和方法同步。
-#####2.synchronized原理
+##### 2.synchronized原理
 JVM基于进入和退出Monitor对象来实现代码块同步和方法同步，两者实现细节不同。
 
 **代码块同步：**在编译后通过将monitorenter指令插入到同步代码块的开始处，将monitorexit指令插入到方法结束处和异常处，通过反编译字节码可以观察到。任何一个对象都有一个monitor与之关联，线程执行monitorenter指令时，会尝试获取对象对应的monitor的所有权，即尝试获得对象的锁。
