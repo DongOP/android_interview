@@ -56,6 +56,10 @@
 - [ADB语句](/adb/ADB.txt)
 - [资料链接](https://testerhome.com/topics/2565)
 
+## Linux
+
+- [Linux基础](/linux/Linux.txt)
+
 ## 致谢
 
 | 贡献者          | 贡献内容        | 贡献者    | 贡献内容                       |
