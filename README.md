@@ -58,7 +58,7 @@
 
 ## Linux
 
-- [Linux基础](/linux/Linux.txt)
+- [Linux基础](http://www.runoob.com/linux/linux-user-manage.html)
 
 ## 致谢
 
